@@ -17,7 +17,7 @@ class CallActivity : AppCompatActivity() {
     val viewModel: CallViewModel by viewModelByFactory {
         val args = intent.getParcelableExtra<BundleArgs>(KEY_ARGS)
             ?: throw NullPointerException("args is null!")
-        CallViewModel(args.url, args.token, application)
+        CallViewModel(args.url, args.token, this)
     }
     lateinit var binding: CallActivityBinding
     var tabLayoutMediator: TabLayoutMediator? = null

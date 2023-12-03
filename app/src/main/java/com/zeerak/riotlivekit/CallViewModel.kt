@@ -1,6 +1,9 @@
 package com.zeerak.riotlivekit
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,8 +20,8 @@ import kotlinx.coroutines.launch
 class CallViewModel(
     val url: String,
     val token: String,
-    application: Application
-) : AndroidViewModel(application), RoomListener {
+    application: Context
+) : AndroidViewModel(application.applicationContext as Application), RoomListener {
     private val mutableRoom = MutableLiveData<Room>()
     val room: LiveData<Room> = mutableRoom
     private val mutableRemoteParticipants = MutableLiveData<List<RemoteParticipant>>()
@@ -26,30 +29,34 @@ class CallViewModel(
 
     init {
         viewModelScope.launch {
-          /*  val room = LiveKit.connect(
-                application,
-                url,
-                token,
-                ConnectOptions(),
-                this@CallViewModel
-            )*/
+            try {
+                val room = LiveKit.connect(
+                    application,
+                    url,
+                    token
+                )
+                /*   val liveKitConnect = LiveKit.create(application)
+           liveKitConnect.connect(url, token)*/
 
-            val liveKitConnect = LiveKit.create(application)
-            liveKitConnect.connect(url, token)
+                val localParticipant = room.localParticipant
+                /* val audioTrack = localParticipant.createAudioTrack()
+                 localParticipant.publishAudioTrack(audioTrack)
+                 val videoTrack = localParticipant.createVideoTrack()
+                 localParticipant.publishVideoTrack(videoTrack)
+                 videoTrack.startCapture()*/
 
-            val localParticipant = liveKitConnect.localParticipant
-           /* val audioTrack = localParticipant.createAudioTrack()
-            localParticipant.publishAudioTrack(audioTrack)
-            val videoTrack = localParticipant.createVideoTrack()
-            localParticipant.publishVideoTrack(videoTrack)
-            videoTrack.startCapture()*/
-
-            localParticipant.setCameraEnabled(false)
-            localParticipant.setMicrophoneEnabled(false)
+                localParticipant.setCameraEnabled(false)
+                localParticipant.setMicrophoneEnabled(false)
 
 
-            updateParticipants(liveKitConnect)
-            mutableRoom.value = liveKitConnect
+                updateParticipants(room)
+                mutableRoom.value = room
+            }catch (e : Exception){
+                (application as CallActivity).onBackPressed()
+                Toast.makeText(application, e.message, Toast.LENGTH_SHORT).show()
+            }
+
+
         }
     }
 
@@ -68,6 +75,7 @@ class CallViewModel(
     }
 
     override fun onDisconnect(room: Room, error: Exception?) {
+        Log.e("","")
     }
 
     override fun onParticipantConnected(
@@ -85,6 +93,7 @@ class CallViewModel(
     }
 
     override fun onFailedToConnect(room: Room, error: Throwable) {
+        Log.e("","")
     }
 
     override fun onActiveSpeakersChanged(speakers: List<Participant>, room: Room) {
