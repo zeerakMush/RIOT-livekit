@@ -109,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         const val PREFERENCES_KEY_TOKEN = "token"
 
         const val URL = "wss://stephen-dzasntmt.livekit.cloud"
-        const val TOKEN =
-            "6FfUgAIZ6bnbpzrCG879wvMuQrNSZJchDvy5SVDiy3d"
+        const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE2OTIwNjcsImlzcyI6IkFQSUF6Rm52aG5GenZFZSIsIm5iZiI6MTcwMTY5MTE2Nywic3ViIjoiWmVlcmFrIiwidmlkZW8iOnsiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwicm9vbSI6IkFueXRoaW5nIiwicm9vbUpvaW4iOnRydWV9fQ.iwfammcGqyCzFUub9NydtOteAzc3PIDAfsRxE8tyBkE"
     }
 }
