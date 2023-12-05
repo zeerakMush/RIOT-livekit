@@ -43,10 +43,13 @@ class CallViewModel(
                  val videoTrack = localParticipant.createVideoTrack()
 
 
+
                 if(Constants.isListener){
+                    //Listener
                     audioTrack.enabled = false
                     videoTrack.enabled = false
                 }else{
+                    //Broadcaster
                     audioTrack.enabled = true
                     videoTrack.enabled = true
                     localParticipant.publishAudioTrack(audioTrack)
