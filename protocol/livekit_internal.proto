@@ -1,0 +1,149 @@
+syntax = "proto3";
+
+package livekit;
+option go_package = "github.com/livekit/protocol/proto/livekit";
+
+// internal protos, not exposed to clients
+import "livekit_recording.proto";
+import "livekit_rtc.proto";
+import "livekit_room.proto";
+
+enum NodeType {
+  SERVER = 0;
+  CONTROLLER = 1;
+  ORIGIN = 2;
+  RELAY = 3;
+}
+
+enum NodeState {
+  STARTING_UP = 0;
+  SERVING = 1;
+  SHUTTING_DOWN = 2;
+}
+
+message Node {
+  string id = 1;
+  string ip = 2;
+  uint32 num_cpus = 3;
+  NodeStats stats = 4;
+  NodeType type = 5;
+  NodeState state = 6;
+  string region = 7;
+}
+
+message NodeStats {
+  // when server was started
+  int64 started_at = 1;
+  // when server last reported its status
+  int64 updated_at = 2;
+
+  // room
+  int32 num_rooms = 3;
+  int32 num_clients = 4;
+  int32 num_tracks_in = 5;
+  int32 num_tracks_out = 6;
+
+  // packet
+  uint64 bytes_in = 7;
+  uint64 bytes_out = 8;
+  uint64 packets_in = 9;
+  uint64 packets_out = 10;
+  uint64 nack_total = 11;
+  float bytes_in_per_sec = 12;
+  float bytes_out_per_sec = 13;
+  float packets_in_per_sec = 14;
+  float packets_out_per_sec = 15;
+  float nack_per_sec = 16;
+
+  // system
+  uint32 num_cpus = 17;
+  float load_avg_last1min = 18;
+  float load_avg_last5min = 19;
+  float load_avg_last15min = 20;
+}
+
+// message to RTC nodes
+message RTCNodeMessage {
+  string participant_key = 1;
+  oneof message {
+    StartSession start_session = 2;
+    SignalRequest request = 3;
+    // internal messages
+    RoomParticipantIdentity remove_participant = 4;
+    MuteRoomTrackRequest mute_track = 5;
+    UpdateParticipantRequest update_participant = 6;
+    DeleteRoomRequest delete_room = 7;
+    UpdateSubscriptionsRequest update_subscriptions = 8;
+    SendDataRequest send_data = 9;
+    UpdateRoomMetadataRequest update_room_metadata = 10;
+  }
+}
+
+// message to Signal nodes
+message SignalNodeMessage {
+  string connection_id = 1;
+  oneof message {
+    SignalResponse response = 2;
+    EndSession end_session = 3;
+  }
+}
+
+message StartSession {
+  string room_name = 1;
+  string identity = 2;
+  string connection_id = 3;
+  // if a client is reconnecting (i.e. resume instead of restart)
+  bool reconnect = 4;
+  // metadata to pass to participant
+  string metadata = 5;
+  ParticipantPermission permission = 6;
+  // TODO: deprecate in the future
+  int32 protocol_version = 7;
+  bool auto_subscribe = 9;
+  bool hidden = 10;
+  ClientInfo client = 11;
+}
+
+message EndSession {
+}
+
+message RemoveParticipant {
+  string participant_id = 1;
+}
+
+message RecordingReservation {
+  string id = 1;
+  int64 submitted_at = 2;
+}
+
+message RecordingRequest {
+  string request_id = 1;
+  oneof request {
+    StartRecordingRequest start = 2;
+    AddOutputRequest add_output = 3;
+    RemoveOutputRequest remove_output = 4;
+    EndRecordingRequest end = 5;
+  }
+}
+
+message RecordingResponse {
+  string request_id = 1;
+  bool success = 2;
+  string error = 3;
+}
+
+// details about the client
+message ClientInfo {
+  enum SDK {
+     UNKNOWN = 0;
+     JS = 1;
+     IOS = 2;
+     ANDROID = 3;
+     FLUTTER = 4;
+     GO = 5;
+  }
+
+  SDK sdk = 1;
+  string version = 2;
+  int32 protocol = 3;
+}
