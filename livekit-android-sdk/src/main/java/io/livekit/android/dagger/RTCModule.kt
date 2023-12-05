@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.livekit.android.util.LKLog
-import io.livekit.android.webrtc.SimulcastVideoEncoderFactoryWrapper
 import org.webrtc.DefaultVideoDecoderFactory
 import org.webrtc.EglBase
 import org.webrtc.PeerConnectionFactory
@@ -111,11 +110,12 @@ class RTCModule {
         ): VideoEncoderFactory {
 
             return if (videoHwAccel) {
-                SimulcastVideoEncoderFactoryWrapper(
+                DefaultVideoEncoderFactory(eglContext, false,false)
+                /*SimulcastVideoEncoderFactoryWrapper(
                     eglContext,
                     enableIntelVp8Encoder = true,
                     enableH264HighProfile = true,
-                )
+                )*/
             } else {
                 SoftwareVideoEncoderFactory()
             }

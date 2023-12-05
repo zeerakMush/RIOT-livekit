@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+/*
 public class SimulcastVideoEncoderFactory implements VideoEncoderFactory {
     VideoEncoderFactory primary;
     VideoEncoderFactory fallback;
@@ -27,4 +28,4 @@ public class SimulcastVideoEncoderFactory implements VideoEncoderFactory {
         codecs.addAll(Arrays.asList(this.fallback.getSupportedCodecs()));
         return (VideoCodecInfo[])codecs.toArray(new VideoCodecInfo[codecs.size()]);
     }
-}
+}*/

@@ -1,9 +1,12 @@
 package com.zeerak.riotlivekit
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.SeekBar
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +17,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class AudioDelayViewModel constructor(
-    private val mPreferencesHelper: PreferencesHelper
-) : ViewModel()  {
+class AudioDelayViewModel(context : Context) : AndroidViewModel(context.applicationContext as Application)  {
     companion object {
         const val MAX_DELAY = 70000L
         const val MIN_DELAY = 0L
@@ -28,7 +29,10 @@ class AudioDelayViewModel constructor(
     private val _delaySec = MutableLiveData(0f)
     val delaySec: LiveData<Float> = _delaySec
 
+    private var mPreferencesHelper : PreferencesHelper
+
     init {
+        mPreferencesHelper = PreferencesHelper(context)
         setDefaultDelay(mPreferencesHelper.getAudioLatencyMS())
     }
 

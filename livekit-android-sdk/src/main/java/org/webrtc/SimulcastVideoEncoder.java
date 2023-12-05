@@ -1,5 +1,6 @@
 package org.webrtc;
 
+/*
 public class SimulcastVideoEncoder extends WrappedNativeVideoEncoder {
     VideoEncoderFactory primary;
     VideoEncoderFactory fallback;
@@ -21,3 +22,4 @@ public class SimulcastVideoEncoder extends WrappedNativeVideoEncoder {
         return false;
     }
 }
+*/

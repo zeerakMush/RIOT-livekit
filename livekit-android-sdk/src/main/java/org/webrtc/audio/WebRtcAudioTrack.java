@@ -57,7 +57,7 @@ class WebRtcAudioTrack {
 
   // RejP - SharedPreferences
   // Adding access to user-configurable audio delay for latency compensation
-  private static final String AUDIO_PREFS_NAME = "com.riot.listener_prefs";
+  private static final String AUDIO_PREFS_NAME = "com.zeerak.livekit.listener_prefs";
   private static final String AUDIO_PREFS_DELAY_MS = "audio_latency_ms";
   // RejP - End SharedPreferences
 

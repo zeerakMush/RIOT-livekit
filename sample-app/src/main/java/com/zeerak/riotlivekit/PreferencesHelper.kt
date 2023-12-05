@@ -18,7 +18,7 @@ class PreferencesHelper constructor(
 ) {
 
     private val preferences by lazy {
-        context.getSharedPreferences("${BuildConfig.APPLICATION_ID}_prefs", Context.MODE_PRIVATE)
+        context.getSharedPreferences("com.zeerak.livekit.listener_prefs", Context.MODE_PRIVATE)
     }
 
     fun saveBroadcastingStartTime(startTime: Long) {

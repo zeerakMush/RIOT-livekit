@@ -1,5 +1,5 @@
 package io.livekit.android.webrtc
-
+/*
 import org.webrtc.EglBase
 import org.webrtc.HardwareVideoEncoderFactory
 import org.webrtc.SoftwareVideoEncoderFactory
@@ -11,8 +11,10 @@ import org.webrtc.VideoEncoderFallback
 import org.webrtc.VideoFrame
 import io.livekit.android.util.LKLog
 import org.webrtc.SimulcastVideoEncoderFactory
-import java.util.concurrent.*
+import java.util.concurrent.**/
+/*
 
+*/
 /*
 Copyright 2017, Lyo Kato <lyo.kato at gmail.com> (Original Author)
 Copyright 2017-2021, Shiguredo Inc.
@@ -28,14 +30,16 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- */
+ *//*
+
 internal class SimulcastVideoEncoderFactoryWrapper(
     sharedContext: EglBase.Context?,
     enableIntelVp8Encoder: Boolean,
     enableH264HighProfile: Boolean
 ) : VideoEncoderFactory {
 
-    /**
+    */
+/**
      * Factory that prioritizes software encoder.
      *
      * When the selected codec can't be handled by the software encoder,
@@ -57,7 +61,8 @@ internal class SimulcastVideoEncoderFactoryWrapper(
      * To avoid nulls, we simply pass responsibility over to the HardwareVideoEncoderFactory.
      * This results in HardwareVideoEncoderFactory being both the primary and fallback,
      * but there aren't any specific problems in doing so.
-     */
+     *//*
+
     private class Fallback(private val hardwareVideoEncoderFactory: VideoEncoderFactory) :
         VideoEncoderFactory {
 
@@ -86,13 +91,15 @@ internal class SimulcastVideoEncoderFactoryWrapper(
 
     }
 
-    /**
+    */
+/**
      * Wraps each stream encoder and performs the following:
      * - Starts up a single thread
      * - When the width/height from [initEncode] doesn't match the frame buffer's,
      *   scales the frame prior to encoding.
      * - Always calls the encoder on the thread.
-     */
+     *//*
+
     private class StreamEncoderWrapper(private val encoder: VideoEncoder) :
         VideoEncoder {
 
@@ -223,4 +230,4 @@ internal class SimulcastVideoEncoderFactoryWrapper(
         return native.supportedCodecs
     }
 
-}
+}*/

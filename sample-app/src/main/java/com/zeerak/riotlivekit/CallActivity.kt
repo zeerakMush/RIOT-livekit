@@ -3,6 +3,8 @@ package com.zeerak.riotlivekit
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,6 +21,11 @@ class CallActivity : AppCompatActivity() {
             ?: throw NullPointerException("args is null!")
         CallViewModel(args.url, args.token, this)
     }
+
+    val audioDelayViewModel: AudioDelayViewModel by viewModelByFactory {
+        AudioDelayViewModel(this)
+    }
+
     lateinit var binding: CallActivityBinding
     var tabLayoutMediator: TabLayoutMediator? = null
     val focusChangeListener = AudioManager.OnAudioFocusChangeListener {}
@@ -30,8 +37,30 @@ class CallActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = CallActivityBinding.inflate(layoutInflater)
+        binding.viewModel = audioDelayViewModel
 
         setContentView(binding.root)
+
+        binding.seekbarDelay.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if(fromUser){
+                    binding.tvValueDelay.text = "${progress/1000f} sec"
+                    audioDelayViewModel.onSeekBarChanged(seekBar!!, progress, fromUser)
+                }
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+        })
+
+        if(Constants.isListener){
+            binding.constraintLayout.visibility = View.VISIBLE
+        }else{
+            binding.constraintLayout.visibility = View.GONE
+        }
 
         // Viewpager setup
         val adapter = GroupieAdapter()

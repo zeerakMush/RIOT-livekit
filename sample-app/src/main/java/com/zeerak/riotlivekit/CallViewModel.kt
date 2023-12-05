@@ -42,18 +42,17 @@ class CallViewModel(
                  val audioTrack = localParticipant.createAudioTrack()
                  val videoTrack = localParticipant.createVideoTrack()
 
-                localParticipant.publishAudioTrack(audioTrack)
-                localParticipant.publishVideoTrack(videoTrack)
-                videoTrack.startCapture()
-                /*if(Constants.isListener){
+
+                if(Constants.isListener){
                     audioTrack.enabled = false
                     videoTrack.enabled = false
                 }else{
                     audioTrack.enabled = true
                     videoTrack.enabled = true
-
-
-                }*/
+                    localParticipant.publishAudioTrack(audioTrack)
+                    localParticipant.publishVideoTrack(videoTrack)
+                    videoTrack.startCapture()
+                }
 
                 updateParticipants(room)
                 mutableRoom.value = room

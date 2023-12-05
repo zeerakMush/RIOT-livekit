@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">livekit-android</string>
+    <string name="app_name">Riot-LiveKit</string>
     <string name="connect">Connect</string>
     <string name="token">Token</string>
     <string name="url">URL</string>
