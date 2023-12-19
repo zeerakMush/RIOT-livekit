@@ -12,9 +12,11 @@ package org.webrtc;
 
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
+import androidx.annotation.Nullable;
 import java.nio.FloatBuffer;
-
-import javax.annotation.Nullable;
+import org.webrtc.GlShader;
+import org.webrtc.GlUtil;
+import org.webrtc.RendererCommon;
 
 /**
  * Helper class to implement an instance of RendererCommon.GlDrawer that can accept multiple input
@@ -53,7 +55,7 @@ class GlGenericDrawer implements RendererCommon.GlDrawer {
      * the shader that needs to happen every frame.
      */
     void onPrepareShader(GlShader shader, float[] texMatrix, int frameWidth, int frameHeight,
-                         int viewportWidth, int viewportHeight);
+        int viewportWidth, int viewportHeight);
   }
 
   private static final String INPUT_VERTEX_COORDINATE_NAME = "in_pos";
@@ -124,8 +126,7 @@ class GlGenericDrawer implements RendererCommon.GlDrawer {
   private final String genericFragmentSource;
   private final String vertexShader;
   private final ShaderCallbacks shaderCallbacks;
-  @Nullable
-  private ShaderType currentShaderType;
+  @Nullable private ShaderType currentShaderType;
   @Nullable private GlShader currentShader;
   private int inPosLocation;
   private int inTcLocation;
@@ -218,11 +219,14 @@ class GlGenericDrawer implements RendererCommon.GlDrawer {
       shader = currentShader;
     } else {
       // Allocate new shader.
-      currentShaderType = shaderType;
+      currentShaderType = null;
       if (currentShader != null) {
         currentShader.release();
+        currentShader = null;
       }
+
       shader = createShader(shaderType);
+      currentShaderType = shaderType;
       currentShader = shader;
 
       shader.useProgram();

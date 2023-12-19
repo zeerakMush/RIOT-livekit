@@ -17,9 +17,7 @@ import android.media.MediaCodecInfo;
 import android.media.MediaCodecInfo.CodecCapabilities;
 import android.media.MediaCodecList;
 import android.os.Build;
-import android.util.Log;
-
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +46,7 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
   @Nullable
   @Override
   public VideoDecoder createDecoder(VideoCodecInfo codecType) {
-    VideoCodecType type = VideoCodecType.valueOf(codecType.getName());
+    VideoCodecMimeType type = VideoCodecMimeType.valueOf(codecType.getName());
     MediaCodecInfo info = findCodecForType(type);
 
     if (info == null) {
@@ -63,16 +61,16 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
 
   @Override
   public VideoCodecInfo[] getSupportedCodecs() {
-    Log.i("265", "--- getSupportedCodecs ---");
     List<VideoCodecInfo> supportedCodecInfos = new ArrayList<VideoCodecInfo>();
     // Generate a list of supported codecs in order of preference:
-    // VP8, VP9, H264 (high profile), and H264 (baseline profile).
-    for (VideoCodecType type :
-        new VideoCodecType[] {VideoCodecType.VP8, VideoCodecType.VP9, VideoCodecType.H264, VideoCodecType.H265}) {
+    // VP8, VP9, H264 (high profile), H264 (baseline profile), AV1 and H265.
+    for (VideoCodecMimeType type :
+        new VideoCodecMimeType[] {VideoCodecMimeType.VP8, VideoCodecMimeType.VP9,
+            VideoCodecMimeType.H264, VideoCodecMimeType.AV1, VideoCodecMimeType.H265}) {
       MediaCodecInfo codec = findCodecForType(type);
       if (codec != null) {
         String name = type.name();
-        if (type == VideoCodecType.H264 && isH264HighProfileSupported(codec)) {
+        if (type == VideoCodecMimeType.H264 && isH264HighProfileSupported(codec)) {
           supportedCodecInfos.add(new VideoCodecInfo(
               name, MediaCodecUtils.getCodecProperties(type, /* highProfile= */ true)));
         }
@@ -85,26 +83,13 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
     return supportedCodecInfos.toArray(new VideoCodecInfo[supportedCodecInfos.size()]);
   }
 
-  private @Nullable MediaCodecInfo findCodecForType(VideoCodecType type) {
-    // HW decoding is not supported on builds before KITKAT.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-      return null;
-    }
-
+  private @Nullable MediaCodecInfo findCodecForType(VideoCodecMimeType type) {
     for (int i = 0; i < MediaCodecList.getCodecCount(); ++i) {
       MediaCodecInfo info = null;
       try {
         info = MediaCodecList.getCodecInfoAt(i);
       } catch (IllegalArgumentException e) {
         Logging.e(TAG, "Cannot retrieve decoder codec info", e);
-      }
-
-      Logging.d(TAG, "codec name: " + info.getName() + " supported types: ");
-
-
-      String[] supportedTypes = info.getSupportedTypes();
-      for (String typeName: supportedTypes) {
-        Logging.d(TAG, "type name: " + typeName);
       }
 
       if (info == null || info.isEncoder()) {
@@ -120,8 +105,7 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
   }
 
   // Returns true if the given MediaCodecInfo indicates a supported encoder for the given type.
-  private boolean isSupportedCodec(MediaCodecInfo info, VideoCodecType type) {
-    String name = info.getName();
+  private boolean isSupportedCodec(MediaCodecInfo info, VideoCodecMimeType type) {
     if (!MediaCodecUtils.codecSupportsType(info, type)) {
       return false;
     }
@@ -135,18 +119,16 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
   }
 
   private boolean isCodecAllowed(MediaCodecInfo info) {
-    /*if (codecAllowedPredicate == null) {
+    if (codecAllowedPredicate == null) {
       return true;
     }
     return codecAllowedPredicate.test(info);
-    */
-    return true;
   }
 
   private boolean isH264HighProfileSupported(MediaCodecInfo info) {
     String name = info.getName();
-    // Support H.264 HP decoding on QCOM chips for Android L and above.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && name.startsWith(QCOM_PREFIX)) {
+    // Support H.264 HP decoding on QCOM chips.
+    if (name.startsWith(QCOM_PREFIX)) {
       return true;
     }
     // Support H.264 HP decoding on Exynos chips for Android M and above.

@@ -10,6 +10,10 @@
 
 package org.webrtc;
 
+import org.webrtc.CalledByNative;
+import org.webrtc.Loggable;
+import org.webrtc.Logging.Severity;
+
 class JNILogging {
   private final Loggable loggable;
 
@@ -19,6 +23,6 @@ class JNILogging {
 
   @CalledByNative
   public void logToInjectable(String message, Integer severity, String tag) {
-    loggable.onLogMessage(message, Logging.Severity.values()[severity], tag);
+    loggable.onLogMessage(message, Severity.values()[severity], tag);
   }
 }

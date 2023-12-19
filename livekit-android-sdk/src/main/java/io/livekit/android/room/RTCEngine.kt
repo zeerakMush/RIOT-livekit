@@ -149,7 +149,6 @@ internal constructor(
         val rtcConfig = PeerConnection.RTCConfiguration(iceServers).apply {
             sdpSemantics = PeerConnection.SdpSemantics.UNIFIED_PLAN
             continualGatheringPolicy = PeerConnection.ContinualGatheringPolicy.GATHER_CONTINUALLY
-            enableDtlsSrtp = true
         }
 
         publisher = pctFactory.create(
@@ -428,6 +427,8 @@ internal constructor(
                         LKLog.e { "error setting remote description for answer: ${outcome.value} " }
                         return@launch
                     }
+
+                    else -> {}
                 }
             }
 
@@ -447,6 +448,8 @@ internal constructor(
                         LKLog.e { "error setting local description for answer: ${outcome.value}" }
                         return@launch
                     }
+
+                    else -> {}
                 }
             }
 

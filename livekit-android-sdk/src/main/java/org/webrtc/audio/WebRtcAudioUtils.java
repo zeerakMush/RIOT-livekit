@@ -23,10 +23,8 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.MediaRecorder.AudioSource;
 import android.os.Build;
-
 import java.lang.Thread;
 import java.util.Arrays;
-
 import org.webrtc.Logging;
 
 final class WebRtcAudioUtils {
@@ -203,13 +201,6 @@ final class WebRtcAudioUtils {
             + "BT SCO: " + audioManager.isBluetoothScoOn());
   }
 
-  private static boolean isVolumeFixed(AudioManager audioManager) {
-    if (Build.VERSION.SDK_INT < 21) {
-      return false;
-    }
-    return audioManager.isVolumeFixed();
-  }
-
   // Adds volume information for all possible stream types.
   private static void logAudioStateVolume(String tag, AudioManager audioManager) {
     final int[] streams = {AudioManager.STREAM_VOICE_CALL, AudioManager.STREAM_MUSIC,
@@ -217,7 +208,7 @@ final class WebRtcAudioUtils {
         AudioManager.STREAM_SYSTEM};
     Logging.d(tag, "Audio State: ");
     // Some devices may not have volume controls and might use a fixed volume.
-    boolean fixedVolume = isVolumeFixed(audioManager);
+    boolean fixedVolume = audioManager.isVolumeFixed();
     Logging.d(tag, "  fixed volume=" + fixedVolume);
     if (!fixedVolume) {
       for (int stream : streams) {

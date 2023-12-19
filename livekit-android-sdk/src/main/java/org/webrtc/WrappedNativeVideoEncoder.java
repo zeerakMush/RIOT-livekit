@@ -1,38 +1,48 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
+/*
+ *  Copyright (c) 2017 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
 
 package org.webrtc;
 
+/**
+ * Wraps a native webrtc::VideoEncoder.
+ */
 public abstract class WrappedNativeVideoEncoder implements VideoEncoder {
-  public WrappedNativeVideoEncoder() {
-  }
+  @Override public abstract long createNativeVideoEncoder();
+  @Override public abstract boolean isHardwareEncoder();
 
-  public abstract long createNativeVideoEncoder();
-
-  public abstract boolean isHardwareEncoder();
-
-  public final VideoCodecStatus initEncode(VideoEncoder.Settings settings, VideoEncoder.Callback encodeCallback) {
+  @Override
+  public final VideoCodecStatus initEncode(Settings settings, Callback encodeCallback) {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
+  @Override
   public final VideoCodecStatus release() {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
-  public final VideoCodecStatus encode(VideoFrame frame, VideoEncoder.EncodeInfo info) {
+  @Override
+  public final VideoCodecStatus encode(VideoFrame frame, EncodeInfo info) {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
-  public final VideoCodecStatus setRateAllocation(VideoEncoder.BitrateAllocation allocation, int framerate) {
+  @Override
+  public final VideoCodecStatus setRateAllocation(BitrateAllocation allocation, int framerate) {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
-  public final VideoEncoder.ScalingSettings getScalingSettings() {
+  @Override
+  public final ScalingSettings getScalingSettings() {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
+  @Override
   public final String getImplementationName() {
     throw new UnsupportedOperationException("Not implemented.");
   }

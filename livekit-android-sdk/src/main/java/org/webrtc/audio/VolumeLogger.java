@@ -11,7 +11,7 @@
 package org.webrtc.audio;
 
 import android.media.AudioManager;
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.webrtc.Logging;

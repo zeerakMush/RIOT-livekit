@@ -1,6 +1,6 @@
-#include <assert.h>
-#include <stddef.h>
-#include <stdlib.h>
+#include <cassert>
+#include <cstddef>
+#include <cstdlib>
 #include <memory.h>
 #include <unistd.h>
 
