@@ -2,5 +2,5 @@ package com.zeerak.riotlivekit
 
 
 object Constants{
-    const val isListener = false
+    const val isListener = true
 }
