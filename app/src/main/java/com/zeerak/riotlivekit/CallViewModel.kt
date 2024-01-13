@@ -33,30 +33,25 @@ class CallViewModel(
                 val room = LiveKit.connect(
                     application,
                     url,
-                    token
+                    token,
+                    ConnectOptions(),
+                    listener = this@CallViewModel
                 )
-                /*   val liveKitConnect = LiveKit.create(application)
-           liveKitConnect.connect(url, token)*/
 
                 val localParticipant = room.localParticipant
-                /* val audioTrack = localParticipant.createAudioTrack()
-                 localParticipant.publishAudioTrack(audioTrack)
-                 val videoTrack = localParticipant.createVideoTrack()
-                 localParticipant.publishVideoTrack(videoTrack)
-                 videoTrack.startCapture()*/
+                val audioTrack = localParticipant.createAudioTrack()
+                val videoTrack = localParticipant.createVideoTrack()
 
-                localParticipant.setCameraEnabled(false)
-                localParticipant.setMicrophoneEnabled(false)
-
+                //Listener
+                audioTrack.enabled = false
+                videoTrack.enabled = false
 
                 updateParticipants(room)
                 mutableRoom.value = room
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 (application as CallActivity).onBackPressed()
                 Toast.makeText(application, e.message, Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
@@ -75,7 +70,7 @@ class CallViewModel(
     }
 
     override fun onDisconnect(room: Room, error: Exception?) {
-        Log.e("","")
+        Log.e("", "")
     }
 
     override fun onParticipantConnected(
@@ -93,7 +88,7 @@ class CallViewModel(
     }
 
     override fun onFailedToConnect(room: Room, error: Throwable) {
-        Log.e("","")
+        Log.e("", "")
     }
 
     override fun onActiveSpeakersChanged(speakers: List<Participant>, room: Room) {

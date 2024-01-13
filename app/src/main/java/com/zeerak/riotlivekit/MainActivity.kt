@@ -109,6 +109,6 @@ class MainActivity : AppCompatActivity() {
         const val PREFERENCES_KEY_TOKEN = "token"
 
         const val URL = "wss://stephen-dzasntmt.livekit.cloud"
-        const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE3MDI1MjYsImlzcyI6IkFQSUF6Rm52aG5GenZFZSIsIm5iZiI6MTcwMTY5MzUyNiwic3ViIjoiWmlyYWsiLCJ2aWRlbyI6eyJjYW5QdWJsaXNoIjp0cnVlLCJjYW5QdWJsaXNoRGF0YSI6dHJ1ZSwiY2FuU3Vic2NyaWJlIjp0cnVlLCJyb29tIjoiVGhlIGJhc2VtZW50Iiwicm9vbUpvaW4iOnRydWV9fQ.DDZzOiAUURaU4admgEI6GT3le9GzX-DfhkExJV5kLwM"
+        const val TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDc1MzE5NjAsImlzcyI6IkFQSUF6Rm52aG5GenZFZSIsIm5iZiI6MTcwNTExMjc2MCwic3ViIjoiemVlcmFrIiwidmlkZW8iOnsiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwicm9vbSI6InJpb3QiLCJyb29tSm9pbiI6dHJ1ZX19.ZNxGcnAKxTCG2UlOzTOi74bxfHdUmuPQ-ffXKbr7AiE"
     }
 }
