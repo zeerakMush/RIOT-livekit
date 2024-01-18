@@ -1,10 +1,11 @@
 package com.zeerak.riotlivekit
 
+import android.util.Log
 import android.view.View
-import com.github.ajalt.timberkt.Timber
 import com.xwray.groupie.viewbinding.BindableItem
 import com.xwray.groupie.viewbinding.GroupieViewHolder
-import com.zeerak.riotlivekit.databinding.ParticipantItemBinding
+import io.livekit.android.R
+import io.livekit.android.databinding.ParticipantItemBinding
 import io.livekit.android.room.Room
 import io.livekit.android.room.participant.ParticipantListener
 import io.livekit.android.room.participant.RemoteParticipant
@@ -43,7 +44,7 @@ class ParticipantItem(
                     participant: RemoteParticipant
                 ) {
                     super.onTrackUnpublished(publication, participant)
-                    Timber.e { "Track unpublished" }
+                    Log.e ("LIVEKIT","Track unpublished" )
                 }
             }
             val existingTrack = getVideoTrack()
@@ -64,7 +65,7 @@ class ParticipantItem(
         }
 
         videoBound = true
-        Timber.v { "adding renderer to $videoTrack" }
+        Log.v ("LIVEKIT","adding renderer to $videoTrack" )
         videoTrack.addRenderer(viewBinding.renderer)
     }
 

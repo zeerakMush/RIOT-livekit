@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
-import com.zeerak.riotlivekit.databinding.MainActivityBinding
+import io.livekit.android.databinding.MainActivityBinding
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,10 +1,1 @@
-<resources>
-    <string name="app_name">Riot-LiveKit</string>
-    <string name="connect">Connect</string>
-    <string name="token">Token</string>
-    <string name="url">URL</string>
-    <string name="save_values">Save Values</string>
-    <string name="reset_values">Reset Values</string>
-    <string name="n_secs"><u>%.1f sec</u></string>
-    <string name="d_secs"><u>%d sec</u></string>
-</resources>
+<resources></resources>

@@ -62,7 +62,6 @@ ext {
     ]
     deps = [
             kotlinx_coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2",
-            timber : "com.github.ajalt:timberkt:1.5.1",
     ]
     annotations = [
     ]

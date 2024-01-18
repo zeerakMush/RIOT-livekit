@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlinx-serialization'
     id 'com.google.protobuf'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -51,6 +52,11 @@ android {
         ndkBuild {
             path file('src/main/jni/Android.mk')
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -116,7 +122,6 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.38'
     kapt 'com.google.dagger:dagger-compiler:2.38'
 
-    implementation deps.timber
     implementation 'com.vdurmont:semver4j:3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
@@ -127,6 +132,22 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation deps.kotlinx_coroutines
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation "androidx.activity:activity-ktx:1.2.2"
+    implementation 'androidx.fragment:fragment-ktx:1.3.2'
+    implementation 'androidx.preference:preference:1.1.1'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${versions.androidx_lifecycle}"
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation "com.xwray:groupie:${versions.groupie}"
+    implementation "com.xwray:groupie-viewbinding:${versions.groupie}"
+    implementation 'com.snakydesign.livedataextensions:lives:1.3.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.6.0"
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

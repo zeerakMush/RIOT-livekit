@@ -1,7 +1,7 @@
 package io.livekit.android.util
 
+import android.util.Log
 import io.livekit.android.util.LoggingLevel.*
-import timber.log.Timber
 
 /*
 Copyright 2017-2018 AJ Alt
@@ -29,54 +29,54 @@ internal class LKLog {
         /** Log a verbose exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun v(t: Throwable? = null, message: () -> String) =
-            log(VERBOSE) { Timber.v(t, message()) }
+            log(VERBOSE) { Log.v("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun v(t: Throwable?) = log(VERBOSE) { Timber.v(t) }
+        inline fun v(t: Throwable?) = log(VERBOSE) { Log.v("LIVEKIT", t?.message.toString()) }
 
         /** Log a debug exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun d(t: Throwable? = null, message: () -> String) =
-            log(DEBUG) { Timber.d(t, message()) }
+            log(DEBUG) { Log.d("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun d(t: Throwable?) = log(DEBUG) { Timber.d(t) }
+        inline fun d(t: Throwable?) = log(DEBUG) { Log.d("LIVEKIT", t?.message.toString()) }
 
         /** Log an info exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun i(t: Throwable? = null, message: () -> String) =
-            log(INFO) { Timber.i(t, message()) }
+            log(INFO) { Log.i("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun i(t: Throwable?) = log(INFO) { Timber.i(t) }
+        inline fun i(t: Throwable?) = log(INFO) { Log.i("LIVEKIT", t?.message.toString()) }
 
         /** Log a warning exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun w(t: Throwable? = null, message: () -> String) =
-            log(WARN) { Timber.w(t, message()) }
+            log(WARN) { Log.w("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun w(t: Throwable?) = log(WARN) { Timber.w(t) }
+        inline fun w(t: Throwable?) = log(WARN) { Log.w("LIVEKIT", t?.message.toString()) }
 
         /** Log an error exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun e(t: Throwable? = null, message: () -> String) =
-            log(ERROR) { Timber.e(t, message()) }
+            log(ERROR) { Log.e("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun e(t: Throwable?) = log(ERROR) { Timber.e(t) }
+        inline fun e(t: Throwable?) = log(ERROR) { Log.e("LIVEKIT", t?.message.toString()) }
 
         /** Log an assert exception and a message that will be evaluated lazily when the message is printed */
         @JvmStatic
         inline fun wtf(t: Throwable? = null, message: () -> String) =
-            log(WTF) { Timber.wtf(t, message()) }
+            log(WTF) { Log.wtf("LIVEKIT", message()) }
 
         @JvmStatic
-        inline fun wtf(t: Throwable?) = log(WTF) { Timber.wtf(t) }
+        inline fun wtf(t: Throwable?) = log(WTF) { Log.wtf("LIVEKIT", t?.message.toString()) }
 
         /** @suppress */
         internal inline fun log(loggingLevel: LoggingLevel, block: () -> Unit) {
-            if (loggingLevel >= LKLog.loggingLevel && Timber.treeCount() > 0) block()
+            if (loggingLevel >= LKLog.loggingLevel) block()
         }
     }
 }

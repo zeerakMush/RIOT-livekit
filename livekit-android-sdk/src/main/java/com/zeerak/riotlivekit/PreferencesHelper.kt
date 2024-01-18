@@ -2,7 +2,6 @@ package com.zeerak.riotlivekit
 
 import android.content.Context
 import androidx.core.content.edit
-import com.zeerak.riotlivekit.BuildConfig
 
 
 private const val TOKEN_PREF = "token"

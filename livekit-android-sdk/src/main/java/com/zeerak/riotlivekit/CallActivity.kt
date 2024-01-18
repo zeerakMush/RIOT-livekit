@@ -3,14 +3,14 @@ package com.zeerak.riotlivekit
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import com.github.ajalt.timberkt.Timber
 import com.google.android.material.tabs.TabLayoutMediator
 import com.snakydesign.livedataextensions.combineLatest
 import com.xwray.groupie.GroupieAdapter
-import com.zeerak.riotlivekit.databinding.CallActivityBinding
+import io.livekit.android.databinding.CallActivityBinding
 import io.livekit.android.room.track.LocalVideoTrack
 import kotlinx.parcelize.Parcelize
 
@@ -110,9 +110,9 @@ class CallActivity : AppCompatActivity() {
             AudioManager.AUDIOFOCUS_GAIN,
         )
         if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-            Timber.v { "Audio focus request granted for VOICE_CALL streams" }
+            Log.v ("LIVEKIT", "Audio focus request granted for VOICE_CALL streams")
         } else {
-            Timber.v { "Audio focus request failed" }
+            Log.v ("LIVEKIT", "Audio focus request failed" )
         }
     }
 

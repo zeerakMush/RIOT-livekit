@@ -8,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.ajalt.timberkt.Timber
 import io.livekit.android.ConnectOptions
 import io.livekit.android.LiveKit
 import io.livekit.android.room.Room
@@ -105,10 +104,10 @@ class CallViewModel(
     }
 
     override fun onActiveSpeakersChanged(speakers: List<Participant>, room: Room) {
-        Timber.i { "active speakers changed ${speakers.count()}" }
+        Log.i ("LIVEKIT","active speakers changed ${speakers.count()}")
     }
 
     override fun onMetadataChanged(participant: Participant, prevMetadata: String?, room: Room) {
-        Timber.i { "Participant metadata changed: ${participant.identity}" }
+        Log.i ("LIVEKIT", "Participant metadata changed: ${participant.identity}" )
     }
 }

@@ -6,7 +6,6 @@ import io.livekit.android.room.Room
 import io.livekit.android.room.RoomListener
 import io.livekit.android.util.LKLog
 import io.livekit.android.util.LoggingLevel
-import timber.log.Timber
 
 class LiveKit {
     companion object {
@@ -17,12 +16,12 @@ class LiveKit {
 
                 // Plant debug tree if needed.
                 if (value != LoggingLevel.OFF) {
-                    val forest = Timber.forest()
+                    /*val forest = Timber.forest()
                     val needsPlanting = forest.none { it is Timber.DebugTree }
 
                     if (needsPlanting) {
                         Timber.plant(Timber.DebugTree())
-                    }
+                    }*/
                 }
             }
 

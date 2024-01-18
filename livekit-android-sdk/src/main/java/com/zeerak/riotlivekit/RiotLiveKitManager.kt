@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.github.ajalt.timberkt.Timber
 import io.livekit.android.ConnectOptions
 import io.livekit.android.LiveKit
 import io.livekit.android.room.Room
@@ -122,7 +121,7 @@ class RiotLiveKitManager(private var mContext : android.content.Context) {
     class Listener(private var customListener : CustomRoomListener) : RoomListener{
         override fun onDisconnect(room: Room, error: Exception?) {
             customListener.onDisconnect(room, error)
-            Timber.i(error)
+            Log.i("LIVEKIT", error?.message.toString())
 
         }
 
@@ -142,15 +141,15 @@ class RiotLiveKitManager(private var mContext : android.content.Context) {
         }
 
         override fun onFailedToConnect(room: Room, error: Exception) {
-            Timber.i(error)
+            Log.i("LIVEKIT", error?.message.toString())
         }
 
         override fun onActiveSpeakersChanged(speakers: List<Participant>, room: Room) {
-            Timber.i { "active speakers changed ${speakers.count()}" }
+            Log.i ("LIVEKIT", "active speakers changed ${speakers.count()}" )
         }
 
         override fun onMetadataChanged(participant: Participant, prevMetadata: String?, room: Room) {
-            Timber.i { "Participant metadata changed: ${participant.identity}" }
+            Log.i ("LIVEKIT", "Participant metadata changed: ${participant.identity}" )
         }
     }
    /* */
