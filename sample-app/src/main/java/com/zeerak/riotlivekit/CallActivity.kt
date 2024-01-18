@@ -93,9 +93,9 @@ class CallActivity : AppCompatActivity() {
             val videoTrack = room.localParticipant.videoTracks.values.firstOrNull()?.track as? LocalVideoTrack
 
             videoTrack?.addRenderer(binding.pipVideoView)
-
-
         }
+
+
         val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
         with(audioManager) {
             previousSpeakerphoneOn = isSpeakerphoneOn
