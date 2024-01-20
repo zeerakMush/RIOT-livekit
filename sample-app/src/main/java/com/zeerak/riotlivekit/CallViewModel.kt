@@ -15,6 +15,7 @@ import io.livekit.android.room.Room
 import io.livekit.android.room.RoomListener
 import io.livekit.android.room.participant.Participant
 import io.livekit.android.room.participant.RemoteParticipant
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CallViewModel(
@@ -22,6 +23,7 @@ class CallViewModel(
     val token: String,
     application: Context
 ) : AndroidViewModel(application.applicationContext as Application), RoomListener {
+
     private val mutableRoom = MutableLiveData<Room>()
     val room: LiveData<Room> = mutableRoom
     private val mutableRemoteParticipants = MutableLiveData<List<RemoteParticipant>>()
@@ -29,6 +31,7 @@ class CallViewModel(
 
     init {
         viewModelScope.launch {
+            delay(600)
             try {
                 val room = LiveKit.connect(
                     application,
@@ -39,32 +42,28 @@ class CallViewModel(
                 )
 
                 val localParticipant = room.localParticipant
-                 val audioTrack = localParticipant.createAudioTrack()
-                 val videoTrack = localParticipant.createVideoTrack()
+                val audioTrack = localParticipant.createAudioTrack()
+                val videoTrack = localParticipant.createVideoTrack()
 
-
-
-                if(Constants.isListener){
+                if (Constants.isListener) {
                     //Listener
                     audioTrack.enabled = false
                     videoTrack.enabled = false
-                }else{
+                } else {
                     //Broadcaster
-                    audioTrack.enabled = true
-                    videoTrack.enabled = true
+                    audioTrack.enabled = false
+                    videoTrack.enabled = false
                     localParticipant.publishAudioTrack(audioTrack)
-                    localParticipant.publishVideoTrack(videoTrack)
+                   // localParticipant.publishVideoTrack(videoTrack)
                     videoTrack.startCapture()
                 }
 
                 updateParticipants(room)
                 mutableRoom.value = room
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 (application as CallActivity).onBackPressed()
                 Toast.makeText(application, e.message, Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
@@ -83,7 +82,7 @@ class CallViewModel(
     }
 
     override fun onDisconnect(room: Room, error: Exception?) {
-        Log.e("","")
+        Log.e("", "")
     }
 
     override fun onParticipantConnected(
@@ -101,7 +100,7 @@ class CallViewModel(
     }
 
     override fun onFailedToConnect(room: Room, error: Exception) {
-        Log.e("","")
+        Log.e("", "")
     }
 
     override fun onActiveSpeakersChanged(speakers: List<Participant>, room: Room) {
