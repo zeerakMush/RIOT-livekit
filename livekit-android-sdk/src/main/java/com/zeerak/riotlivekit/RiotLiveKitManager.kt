@@ -34,10 +34,10 @@ class RiotLiveKitManager(private var mContext : android.content.Context) {
     fun setDelay(delay : Long){
         mPreferencesHelper.saveAudioLatencyMS((delay))
         mPreferencesHelper.cacheAudioLatencyMS((delay))
-        JavaAudioDeviceModule.delayDirty = true
+        JavaAudioDeviceModule.delayDirty = delay != 0L
     }
 
-    fun launchRiotLiveKitCallScreenWith(url : String, token : String, asListener : Boolean){
+    fun launchRiotLiveKitCallScreenWith(url : String, token : String, asListener : Boolean = true){
         Constants.isListener = asListener
         val intent = Intent(mContext, CallActivity::class.java).apply {
             putExtra(
