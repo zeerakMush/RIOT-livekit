@@ -4,8 +4,7 @@ import android.util.Log
 import android.view.View
 import com.xwray.groupie.viewbinding.BindableItem
 import com.xwray.groupie.viewbinding.GroupieViewHolder
-import io.livekit.android.R
-import io.livekit.android.databinding.ParticipantItemBinding
+import com.zeerak.riotlivekit.databinding.ParticipantItemBinding
 import io.livekit.android.room.Room
 import io.livekit.android.room.participant.ParticipantListener
 import io.livekit.android.room.participant.RemoteParticipant

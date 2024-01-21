@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.snakydesign.livedataextensions.combineLatest
 import com.xwray.groupie.GroupieAdapter
-import io.livekit.android.databinding.CallActivityBinding
+import com.zeerak.riotlivekit.databinding.CallActivityBinding
 import io.livekit.android.room.track.LocalVideoTrack
 import kotlinx.parcelize.Parcelize
 

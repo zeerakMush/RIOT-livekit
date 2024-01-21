@@ -428,6 +428,8 @@ internal constructor(
                         LKLog.e { "error setting remote description for answer: ${outcome.value} " }
                         return@launch
                     }
+
+                    else -> {}
                 }
             }
 
@@ -447,6 +449,8 @@ internal constructor(
                         LKLog.e { "error setting local description for answer: ${outcome.value}" }
                         return@launch
                     }
+
+                    else -> {}
                 }
             }
 

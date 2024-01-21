@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-apply plugin: 'maven-publish'
-
-
 def LIB_GROUP_ID = 'com.zeerak'
 def LIB_ARTIFACT_ID = 'riotlivekit'
 def LIB_VERSION = '1.0.0'

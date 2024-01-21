@@ -1,11 +1,21 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
+        google()
+        mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
+        gradlePluginPortal()
     }
 }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 include ':sample-app', ':livekit-android-sdk'
 rootProject.name='livekit-android'
-/*
-include ':webrtc-android-framework'
-*/
