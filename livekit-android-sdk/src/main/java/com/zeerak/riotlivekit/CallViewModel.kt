@@ -14,6 +14,7 @@ import io.livekit.android.room.Room
 import io.livekit.android.room.RoomListener
 import io.livekit.android.room.participant.Participant
 import io.livekit.android.room.participant.RemoteParticipant
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CallViewModel(
@@ -28,6 +29,7 @@ class CallViewModel(
 
     init {
         viewModelScope.launch {
+            delay(600)
             try {
                 val room = LiveKit.connect(
                     application,
@@ -38,10 +40,7 @@ class CallViewModel(
                 )
 
                 val localParticipant = room.localParticipant
-                 val audioTrack = localParticipant.createAudioTrack()
-
-
-
+                val audioTrack = localParticipant.createAudioTrack()
 
                 if(Constants.isListener){
                     //Listener

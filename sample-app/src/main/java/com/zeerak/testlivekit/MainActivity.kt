@@ -3,9 +3,7 @@ package com.zeerak.testlivekit
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-/*
 import com.zeerak.riotlivekit.RiotLiveKitManager
-*/
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,12 +12,12 @@ class MainActivity : AppCompatActivity() {
 
 
         findViewById<Button>(R.id.button).setOnClickListener {
-           /* RiotLiveKitManager(this)
+            RiotLiveKitManager(this)
                 .launchRiotLiveKitCallScreenWith(
                     "Your URL",
                     "Your Token",
                     true
-                )*/
+                )
 
         }
     }
