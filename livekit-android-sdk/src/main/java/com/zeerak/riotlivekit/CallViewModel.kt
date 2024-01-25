@@ -39,15 +39,11 @@ class CallViewModel(
                     this@CallViewModel
                 )
 
-                val localParticipant = room.localParticipant
-                val audioTrack = localParticipant.createAudioTrack()
-
-                if(Constants.isListener){
-                    //Listener
-                    audioTrack.enabled = false
-                }else{
+                //Broadcaster
+                if(!Constants.isListener){
+                    val localParticipant = room.localParticipant
+                    val audioTrack = localParticipant.createAudioTrack()
                     val videoTrack = localParticipant.createVideoTrack()
-                    //Broadcaster
                     audioTrack.enabled = true
                     videoTrack.enabled = true
                     localParticipant.publishAudioTrack(audioTrack)
