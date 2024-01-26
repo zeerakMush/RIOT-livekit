@@ -37,8 +37,9 @@ class RiotLiveKitManager(private var mContext : android.content.Context) {
         JavaAudioDeviceModule.delayDirty = delay != 0L
     }
 
-    fun launchRiotLiveKitCallScreenWith(url : String, token : String, asListener : Boolean = true){
+    fun launchRiotLiveKitCallScreenWith(url : String, token : String, asListener : Boolean = true, enableVideoBroadcast : Boolean =  false){
         Constants.isListener = asListener
+        Constants.enableVideoBroadcast = enableVideoBroadcast
         val intent = Intent(mContext, CallActivity::class.java).apply {
             putExtra(
                 CallActivity.KEY_ARGS,

@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Adjust Audio Delay"
-            android:textColor="@android:color/background_dark"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +171,8 @@
                 android:id="@+id/mic_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_round_mic_24" />
+                android:src="@drawable/ic_round_mic_24"
+                android:tag="enabled"/>
 
             <Space
                 android:layout_width="20dp"
@@ -183,7 +183,8 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/ic_round_videocam_24"
-                android:visibility="visible"/>
+                android:visibility="visible"
+                android:tag="enabled"/>
 
         </LinearLayout>
 
