@@ -1,80 +1,72 @@
 # Android Kotlin SDK for LiveKit
 
-Official Android Client SDK for [LiveKit](https://github.com/livekit/livekit-server). Easily add video & audio capabilities to your Android apps.
-
-## Docs
-
-Docs and guides at [https://docs.livekit.io](https://docs.livekit.io)
+Easily add video & audio capabilities to your Android apps.
 
 ## Installation
-
-LiveKit for Android is available as a Maven package.
 
 ```groovy title="build.gradle"
 ...
 dependencies {
-  implementation "io.livekit:livekit-android:<version>"
+  implementation "com.github.zeerakMush:RIOT-livekit:<version>"
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
 ## Usage
 
-LiveKit uses WebRTC-provided `org.webrtc.SurfaceViewRenderer` to render video tracks. Subscribed audio tracks are automatically played.
+### Launch Default Call Screen
 
 ```kt
 class MainActivity : AppCompatActivity(), RoomListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ...
-        val url = "wss://your_host";
-        val token = "your_token"
-
-        launch {
-            val room = LiveKit.connect(
-                applicationContext,
-                url,
-                token,
-                ConnectOptions(),
-                this
-            )
-            val localParticipant = room.localParticipant
-            val audioTrack = localParticipant.createAudioTrack()
-            localParticipant.publishAudioTrack(audioTrack)
-            val videoTrack = localParticipant.createVideoTrack()
-            localParticipant.publishVideoTrack(videoTrack)
-            videoTrack.startCapture()
-
-            attachVideo(videoTrack, localParticipant)
-        }
+        val riotManager = RiotLiveKitManager(this).init(
+            "URL",
+            "TOKEN",
+        )
+        riotManager.launchRiotLiveKitCallScreenWith()
     }
-
-    override fun onTrackSubscribed(
-        track: Track,
-        publication: RemoteTrackPublication,
-        participant: RemoteParticipant,
-        room: Room
-    ) {
-        if (track is VideoTrack) {
-            attachVideo(track, participant)
-        }
-    }
-
-    private fun attachVideo(videoTrack: VideoTrack, participant: Participant) {
-        // viewBinding.renderer is a `org.webrtc.SurfaceViewRenderer` in your
-        // layout
-        videoTrack.addRenderer(viewBinding.renderer)
-    }
-}
 ```
 
-## Dev Environment
+### OR By Using Custom Connect Method
+```kt
+class MainActivity : AppCompatActivity(), RoomListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val riotManager = RiotLiveKitManager(this).init(
+            "URL",
+            "TOKEN",
+        )
+        riotManager.connect({}, object : RoomListener {})
+    }
+```
 
-To develop the Android SDK itself, you'll need:
-
-- Ensure the protocol submodule repo is initialized and updated with `git submodule update --init`
-- Install [Android Studio Arctic Fox 2020.3.1+](https://developer.android.com/studio)
+### set Delay
+```kt
+class MainActivity : AppCompatActivity(), RoomListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val riotManager = RiotLiveKitManager(this).init(
+            "URL",
+            "TOKEN",
+        )
+        riotManager.launchRiotLiveKitCallScreenWith()
+        riotManager.setDelay(500L) 
+    }
+```
 
 ### Optional (Dev convenience)
 
-1. Download webrtc sources from https://webrtc.googlesource.com/src
-2. Add sources to Android Studio by pointing at the `webrtc/sdk/android` folder.
+1. Use method launchRiotLiveKitCallScreenWith to launch call screen.
+2. Custom call screen can also be created using methods inside RiotLiveKitManager class. 
+3. setDelay() method uses value in milliseconds the upper limit is 70000L default is 0.
+
